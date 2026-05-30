@@ -51,10 +51,33 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Patch JCenter in Pub Cache Dependencies
+      - name: Patch Dependencies (JCenter & Android Namespace)
         run: |
-          # Replace jcenter() with mavenCentral() globally in all pub cache build.gradle scripts
+          # 1. Replace jcenter() with mavenCentral() globally in all pub cache build.gradle scripts
           find ~/.pub-cache/ -name "build.gradle" -exec sed -i 's/jcenter()/mavenCentral()/g' {} +
+
+          # 2. Inject missing namespace declarations for older plugins to satisfy AGP 8.0+
+          python3 -c "
+          import os, re
+          pub_cache = os.path.expanduser('~/.pub-cache/hosted/pub.dev/')
+          for root, dirs, files in os.walk(pub_cache):
+              if 'build.gradle' in files:
+                  gradle_path = os.path.join(root, 'build.gradle')
+                  manifest_path = os.path.join(root, 'src/main/AndroidManifest.xml')
+                  if os.path.exists(manifest_path):
+                      with open(gradle_path, 'r', encoding='utf-8', errors='ignore') as f:
+                          gradle_content = f.read()
+                      if 'namespace' not in gradle_content and 'android {' in gradle_content:
+                          with open(manifest_path, 'r', encoding='utf-8', errors='ignore') as f:
+                              manifest_content = f.read()
+                          match = re.search(r'package=\"([^\"]+)\"', manifest_content)
+                          if match:
+                              package_name = match.group(1)
+                              gradle_content = gradle_content.replace('android {', f'android {{\n    namespace \"{package_name}\"')
+                              with open(gradle_path, 'w', encoding='utf-8') as f:
+                                  f.write(gradle_content)
+                              print(f'Successfully injected namespace \"{package_name}\" into {gradle_path}')
+          "
 
       - name: Build APK
         run: |
