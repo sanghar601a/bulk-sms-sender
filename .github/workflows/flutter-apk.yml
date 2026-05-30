@@ -25,6 +25,26 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Bootstrap Clean Flutter Structure
+        run: |
+          # 1. Create a backup of our custom code and configurations
+          mkdir -p temp_backup
+          cp -r lib temp_backup/
+          cp pubspec.yaml temp_backup/
+          cp android/app/src/main/AndroidManifest.xml temp_backup/AndroidManifest.xml
+
+          # 2. Delete the manually written android and ios directories to avoid conflicts
+          rm -rf android ios
+
+          # 3. Let Flutter CLI generate the official, standard build structure
+          flutter create --org com.offlinesms.bulksms --project-name bulk_sms_sender --platforms=android,ios .
+
+          # 4. Restore our custom code and permission settings
+          cp -f temp_backup/pubspec.yaml pubspec.yaml
+          rm -rf lib
+          cp -r temp_backup/lib lib
+          cp -f temp_backup/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+
       - name: Install dependencies
         run: flutter pub get
 
