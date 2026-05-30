@@ -48,6 +48,16 @@ jobs:
           cp -r temp_backup/lib lib
           cp -f temp_backup/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
 
+          # 5. Inject JCenter compatibility patch into the generated root build.gradle
+          cat << 'EOF' > patch.gradle
+          org.gradle.api.artifacts.dsl.RepositoryHandler.metaClass.jcenter = { ->
+              mavenCentral()
+              maven { url "https://jcenter.bintray.com/" }
+          }
+          EOF
+          cat patch.gradle android/build.gradle > temp_build.gradle && mv temp_build.gradle android/build.gradle
+          rm patch.gradle
+
       - name: Install dependencies
         run: flutter pub get
 
