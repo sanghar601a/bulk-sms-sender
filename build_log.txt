@@ -24,13 +24,56 @@ If no such version exists, report the issue to the plugin. If necessary, here is
 an issue against a plugin: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers#report-incompatible-kotlin-gradle-plugin-usage-to-plugin-authors
 
 If you are a plugin author, please migrate your plugin to Built-in Kotlin using this guide: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
+Checking the license for package Android SDK Platform 33 in /usr/local/lib/android/sdk/licenses
+License for package Android SDK Platform 33 accepted.
+Preparing "Install Android SDK Platform 33 (revision 3)".
+"Install Android SDK Platform 33 (revision 3)" ready.
+Installing Android SDK Platform 33 in /usr/local/lib/android/sdk/platforms/android-33
+"Install Android SDK Platform 33 (revision 3)" complete.
+"Install Android SDK Platform 33 (revision 3)" finished.
+[=========                              ] 25%                                   
+Checking the license for package CMake 3.22.1 in /usr/local/lib/android/sdk/licenses
+License for package CMake 3.22.1 accepted.
+Preparing "Install CMake 3.22.1 v.3.22.1".
+"Install CMake 3.22.1 v.3.22.1" ready.
+Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
+"Install CMake 3.22.1 v.3.22.1" complete.
+"Install CMake 3.22.1 v.3.22.1" finished.
+lib/features/sms_sender/presentation/screens/dashboard_screen.dart:105:66: Error: Member not found: 'between'.
+                            mainAxisAlignment: MainAxisAlignment.between,
+                                                                 ^^^^^^^
+lib/features/sms_sender/presentation/screens/dashboard_screen.dart:149:44: Error: Member not found: 'between'.
+      mainAxisAlignment: MainAxisAlignment.between,
+                                           ^^^^^^^
+lib/features/sms_sender/presentation/screens/dashboard_screen.dart:260:36: Error: The argument type 'Border' can't be assigned to the parameter type 'BorderSide'.
+ - 'Border' is from 'package:flutter/src/painting/box_border.dart' ('/opt/hostedtoolcache/flutter/stable-3.44.0-x64/flutter/packages/flutter/lib/src/painting/box_border.dart').
+ - 'BorderSide' is from 'package:flutter/src/painting/borders.dart' ('/opt/hostedtoolcache/flutter/stable-3.44.0-x64/flutter/packages/flutter/lib/src/painting/borders.dart').
+                      side: Border.all(color: Colors.redAccent.withOpacity(0.3)),
+                                   ^
+lib/features/sms_sender/presentation/screens/dashboard_screen.dart:286:52: Error: Member not found: 'between'.
+              mainAxisAlignment: MainAxisAlignment.between,
+                                                   ^^^^^^^
+lib/features/sms_sender/presentation/screens/dashboard_screen.dart:357:50: Error: Member not found: 'between'.
+            mainAxisAlignment: MainAxisAlignment.between,
+                                                 ^^^^^^^
+lib/features/sms_sender/presentation/state/sms_sender_provider.dart:105:35: Error: The getter 'displayName' isn't defined for the type 'SmsSenderProvider'.
+ - 'SmsSenderProvider' is from 'package:bulk_sms_sender/features/sms_sender/presentation/state/sms_sender_provider.dart' ('lib/features/sms_sender/presentation/state/sms_sender_provider.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'displayName'.
+      _addLog("[Parser] Reading '$displayName'...");
+                                  ^^^^^^^^^^^
+lib/features/sms_sender/presentation/state/sms_sender_provider.dart:120:68: Error: The getter 'displayName' isn't defined for the type 'SmsSenderProvider'.
+ - 'SmsSenderProvider' is from 'package:bulk_sms_sender/features/sms_sender/presentation/state/sms_sender_provider.dart' ('lib/features/sms_sender/presentation/state/sms_sender_provider.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'displayName'.
+        _addLog("[Error] No valid contact phone numbers found in '$displayName'. Make sure phone numbers are in Column A or under a phone header.");
+                                                                   ^^^^^^^^^^^
+Target kernel_snapshot_program failed: Exception
+
 
 FAILURE: Build failed with an exception.
 
 * What went wrong:
-Could not determine the dependencies of task ':background_sms:mergeReleaseGeneratedProguardFiles'.
-> Could not create task ':background_sms:compileReleaseJavaWithJavac'.
-   > In order to compile Java 9+ source, please set compileSdkVersion to 30 or above
+Execution failed for task ':app:compileFlutterBuildRelease'.
+> Process 'command '/opt/hostedtoolcache/flutter/stable-3.44.0-x64/flutter/bin/flutter'' finished with non-zero exit value 1
 
 * Try:
 > Run with --stacktrace option to get the stack trace.
@@ -38,6 +81,6 @@ Could not determine the dependencies of task ':background_sms:mergeReleaseGenera
 > Run with --scan to generate a Build Scan (Powered by Develocity).
 > Get more help at https://help.gradle.org.
 
-BUILD FAILED in 2m 11s
-Running Gradle task 'assembleRelease'...                          132.2s
+BUILD FAILED in 2m 39s
+Running Gradle task 'assembleRelease'...                          160.0s
 Gradle task assembleRelease failed with exit code 1
