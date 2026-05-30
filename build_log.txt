@@ -17,60 +17,21 @@ Got dependencies!
 Try `flutter pub outdated` for more information.
 Running Gradle task 'assembleRelease'...                        
 
-FAILURE: Build completed with 2 failures.
+FAILURE: Build failed with an exception.
 
-1: Task failed with an exception.
------------
-* Where:
-Build file '/home/runner/.pub-cache/hosted/pub.dev/background_sms-0.0.4/android/build.gradle' line: 7
-
-* What went wrong:
-A problem occurred evaluating project ':background_sms'.
-> Could not find method jcenter() for arguments [] on repository container of type org.gradle.api.internal.artifacts.dsl.DefaultRepositoryHandler.
-
-* Try:
-> Run with --stacktrace option to get the stack trace.
-> Run with --info or --debug option to get more log output.
-> Run with --scan to generate a Build Scan (Powered by Develocity).
-> Get more help at https://help.gradle.org.
-==============================================================================
-
-2: Task failed with an exception.
------------
 * What went wrong:
 A problem occurred configuring project ':background_sms'.
-> Failed to notify project evaluation listener.
-   > java.lang.NullPointerException (no error message)
-   > 'kotlin-android' plugin requires one of the Android Gradle plugins.
-     Please apply one of the following plugins to ':background_sms' project:
-     - com.android.application
-     	- com.android.library
-     	- com.android.dynamic-feature
-     	- com.android.test
-     	- com.android.instantapp
-     	- com.android.feature
-   > java.lang.NullPointerException (no error message)
+> Could not create an instance of type com.android.build.api.variant.impl.LibraryVariantBuilderImpl.
+   > Namespace not specified. Specify a namespace in the module's build file: /home/runner/.pub-cache/hosted/pub.dev/background_sms-0.0.4/android/build.gradle. See https://d.android.com/r/tools/upgrade-assistant/set-namespace for information about setting the namespace.
+
+     If you've specified the package attribute in the source AndroidManifest.xml, you can use the AGP Upgrade Assistant to migrate to the namespace value in the build file. Refer to https://d.android.com/r/tools/upgrade-assistant/agp-upgrade-assistant for general information about using the AGP Upgrade Assistant.
 
 * Try:
 > Run with --stacktrace option to get the stack trace.
 > Run with --info or --debug option to get more log output.
 > Run with --scan to generate a Build Scan (Powered by Develocity).
 > Get more help at https://help.gradle.org.
-==============================================================================
 
-BUILD FAILED in 1m 29s
-Running Gradle task 'assembleRelease'...                           90.5s
-
-┌─ Flutter Fix ────────────────────────────────────────────────────────────────────────┐
-│ [!] Starting AGP 9+, only the new DSL interface will be read.                        │
-│ This results in a build failure when applying the Flutter Gradle plugin at           │
-│ /home/runner/work/bulk-sms-sender/bulk-sms-sender/android/app/build.gradle.kts.      │
-│                                                                                      │
-│ To resolve this update flutter or opt out of `android.newDsl`.                       │
-│ For instructions on how to opt out, see:                                             │
-│ https://developer.android.com/build/releases/agp-9-0-0-release-notes                 │
-│                                                                                      │
-│ If you are not upgrading to AGP 9+, run `flutter analyze --suggestions` to check for │
-│ incompatible dependencies.                                                           │
-└──────────────────────────────────────────────────────────────────────────────────────┘
+BUILD FAILED in 1m 33s
+Running Gradle task 'assembleRelease'...                           94.2s
 Gradle task assembleRelease failed with exit code 1
