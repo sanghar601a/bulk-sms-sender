@@ -1,0 +1,76 @@
+Resolving dependencies...
+Downloading packages...
+  archive 3.6.1 (4.0.9 available)
+  file_picker 8.3.7 (11.0.2 available)
+  flutter_lints 3.0.2 (6.0.0 available)
+  lints 3.0.0 (6.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.18.0 (1.18.2 available)
+  permission_handler 11.4.0 (12.0.2 available)
+  permission_handler_android 12.1.0 (13.0.1 available)
+  test_api 0.7.11 (0.7.12 available)
+  vector_math 2.2.0 (2.3.0 available)
+  win32 5.15.0 (6.3.0 available)
+  xml 6.6.1 (7.0.1 available)
+Got dependencies!
+12 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Running Gradle task 'assembleRelease'...                        
+
+FAILURE: Build completed with 2 failures.
+
+1: Task failed with an exception.
+-----------
+* Where:
+Build file '/home/runner/.pub-cache/hosted/pub.dev/background_sms-0.0.4/android/build.gradle' line: 7
+
+* What went wrong:
+A problem occurred evaluating project ':background_sms'.
+> Could not find method jcenter() for arguments [] on repository container of type org.gradle.api.internal.artifacts.dsl.DefaultRepositoryHandler.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+==============================================================================
+
+2: Task failed with an exception.
+-----------
+* What went wrong:
+A problem occurred configuring project ':background_sms'.
+> Failed to notify project evaluation listener.
+   > java.lang.NullPointerException (no error message)
+   > 'kotlin-android' plugin requires one of the Android Gradle plugins.
+     Please apply one of the following plugins to ':background_sms' project:
+     - com.android.application
+     	- com.android.library
+     	- com.android.dynamic-feature
+     	- com.android.test
+     	- com.android.instantapp
+     	- com.android.feature
+   > java.lang.NullPointerException (no error message)
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+==============================================================================
+
+BUILD FAILED in 1m 27s
+Running Gradle task 'assembleRelease'...                           87.9s
+
+┌─ Flutter Fix ────────────────────────────────────────────────────────────────────────┐
+│ [!] Starting AGP 9+, only the new DSL interface will be read.                        │
+│ This results in a build failure when applying the Flutter Gradle plugin at           │
+│ /home/runner/work/bulk-sms-sender/bulk-sms-sender/android/app/build.gradle.kts.      │
+│                                                                                      │
+│ To resolve this update flutter or opt out of `android.newDsl`.                       │
+│ For instructions on how to opt out, see:                                             │
+│ https://developer.android.com/build/releases/agp-9-0-0-release-notes                 │
+│                                                                                      │
+│ If you are not upgrading to AGP 9+, run `flutter analyze --suggestions` to check for │
+│ incompatible dependencies.                                                           │
+└──────────────────────────────────────────────────────────────────────────────────────┘
+Gradle task assembleRelease failed with exit code 1
