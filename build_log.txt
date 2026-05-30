@@ -16,15 +16,21 @@ Got dependencies!
 12 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
 Running Gradle task 'assembleRelease'...                        
+WARNING: Your app uses the following plugins that apply Kotlin Gradle Plugin (KGP): simnumber
+Future versions of Flutter will fail to build if your app uses plugins that apply KGP.
+
+Please check the changelogs of these plugins and upgrade to a version that supports Built-in Kotlin.
+If no such version exists, report the issue to the plugin. If necessary, here is a guide on filing 
+an issue against a plugin: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers#report-incompatible-kotlin-gradle-plugin-usage-to-plugin-authors
+
+If you are a plugin author, please migrate your plugin to Built-in Kotlin using this guide: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
 
 FAILURE: Build failed with an exception.
 
 * What went wrong:
-A problem occurred configuring project ':background_sms'.
-> Could not create an instance of type com.android.build.api.variant.impl.LibraryVariantBuilderImpl.
-   > Namespace not specified. Specify a namespace in the module's build file: /home/runner/.pub-cache/hosted/pub.dev/background_sms-0.0.4/android/build.gradle. See https://d.android.com/r/tools/upgrade-assistant/set-namespace for information about setting the namespace.
-
-     If you've specified the package attribute in the source AndroidManifest.xml, you can use the AGP Upgrade Assistant to migrate to the namespace value in the build file. Refer to https://d.android.com/r/tools/upgrade-assistant/agp-upgrade-assistant for general information about using the AGP Upgrade Assistant.
+Could not determine the dependencies of task ':background_sms:mergeReleaseGeneratedProguardFiles'.
+> Could not create task ':background_sms:compileReleaseJavaWithJavac'.
+   > In order to compile Java 9+ source, please set compileSdkVersion to 30 or above
 
 * Try:
 > Run with --stacktrace option to get the stack trace.
@@ -32,6 +38,6 @@ A problem occurred configuring project ':background_sms'.
 > Run with --scan to generate a Build Scan (Powered by Develocity).
 > Get more help at https://help.gradle.org.
 
-BUILD FAILED in 1m 33s
-Running Gradle task 'assembleRelease'...                           94.2s
+BUILD FAILED in 2m 11s
+Running Gradle task 'assembleRelease'...                          132.2s
 Gradle task assembleRelease failed with exit code 1
