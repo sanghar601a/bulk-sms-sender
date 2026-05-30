@@ -1,0 +1,28 @@
+name: bulk_sms_sender
+description: A 100% offline Bulk SMS Sender application for Pakistan.
+version: 1.0.0+1
+
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  background_sms: ^0.1.2
+  simnumber: ^0.0.12
+  excel: ^4.0.0
+  file_picker: ^8.0.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  permission_handler: ^11.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true

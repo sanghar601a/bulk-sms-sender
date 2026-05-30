@@ -1,0 +1,20 @@
+include ':app'
+
+def localProperties = new Properties()
+def localPropertiesFile = new File(rootProject.projectDir, "local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterSdkPath = localProperties.getProperty('flutter.sdk')
+if (flutterSdkPath == null) {
+    flutterSdkPath = System.getenv('FLUTTER_ROOT')
+}
+if (flutterSdkPath == null) {
+    // Default fallback or throw error, but we'll import flutter's helper directly
+}
+
+evaluate(new File("${flutterSdkPath}/packages/flutter_tools/gradle/app_plugin_loader.gradle"))
+BasePlugin.metaClass.getFlutterEngineVersion = { null }
