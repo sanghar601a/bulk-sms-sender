@@ -102,7 +102,7 @@ class SmsSenderProvider extends ChangeNotifier {
 
       final file = result.files.first;
       _importedFileName = file.name;
-      _addLog("[Parser] Reading '$displayName'...");
+      _addLog("[Parser] Reading '$_importedFileName'...");
 
       List<int> bytes;
       if (file.bytes != null) {
@@ -117,7 +117,7 @@ class SmsSenderProvider extends ChangeNotifier {
       // Run parser
       final parsed = ExcelParser.parse(bytes);
       if (parsed.isEmpty) {
-        _addLog("[Error] No valid contact phone numbers found in '$displayName'. Make sure phone numbers are in Column A or under a phone header.");
+        _addLog("[Error] No valid contact phone numbers found in '$_importedFileName'. Make sure phone numbers are in Column A or under a phone header.");
         return;
       }
 

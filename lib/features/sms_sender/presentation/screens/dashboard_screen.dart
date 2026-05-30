@@ -102,7 +102,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                           // Monospace logs terminal header
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.between,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
                                 "Live Dispatch Output",
@@ -146,7 +146,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildHeader() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.between,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,7 +257,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
-                      side: Border.all(color: Colors.redAccent.withOpacity(0.3)),
+                      side: BorderSide(color: Colors.redAccent.withOpacity(0.3)),
                     ),
                   ),
                 ),
@@ -283,7 +283,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               border: Border.all(color: Colors.white.withOpacity(0.05)),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.between,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
                   "SIM Slot:",
@@ -354,7 +354,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.between,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
               Text(
                 "SMS Message Template",
