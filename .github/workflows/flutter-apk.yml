@@ -51,12 +51,12 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Patch Dependencies (JCenter & Android Namespace)
+      - name: Patch Dependencies (Namespace & SDK versions)
         run: |
           # 1. Replace jcenter() with mavenCentral() globally in all pub cache build.gradle scripts
           find ~/.pub-cache/ -name "build.gradle" -exec sed -i 's/jcenter()/mavenCentral()/g' {} +
 
-          # 2. Inject missing namespace declarations for older plugins to satisfy AGP 8.0+
+          # 2. Inject missing namespace declarations and force compileSdkVersion/targetSdkVersion to 33
           python3 -c "
           import os, re
           pub_cache = os.path.expanduser('~/.pub-cache/hosted/pub.dev/')
@@ -67,6 +67,10 @@ jobs:
                   if os.path.exists(manifest_path):
                       with open(gradle_path, 'r', encoding='utf-8', errors='ignore') as f:
                           gradle_content = f.read()
+                      
+                      modified = False
+                      
+                      # Inject namespace if missing
                       if 'namespace' not in gradle_content and 'android {' in gradle_content:
                           with open(manifest_path, 'r', encoding='utf-8', errors='ignore') as f:
                               manifest_content = f.read()
@@ -74,9 +78,24 @@ jobs:
                           if match:
                               package_name = match.group(1)
                               gradle_content = gradle_content.replace('android {', f'android {{\n    namespace \"{package_name}\"')
-                              with open(gradle_path, 'w', encoding='utf-8') as f:
-                                  f.write(gradle_content)
+                              modified = True
                               print(f'Successfully injected namespace \"{package_name}\" into {gradle_path}')
+                      
+                      # Force compileSdkVersion to 33
+                      if 'compileSdkVersion' in gradle_content:
+                          gradle_content = re.sub(r'compileSdkVersion\s+\S+', 'compileSdkVersion 33', gradle_content)
+                          modified = True
+                          print(f'Forced compileSdkVersion 33 in {gradle_path}')
+                      
+                      # Force targetSdkVersion to 33
+                      if 'targetSdkVersion' in gradle_content:
+                          gradle_content = re.sub(r'targetSdkVersion\s+\S+', 'targetSdkVersion 33', gradle_content)
+                          modified = True
+                          print(f'Forced targetSdkVersion 33 in {gradle_path}')
+                      
+                      if modified:
+                          with open(gradle_path, 'w', encoding='utf-8') as f:
+                              f.write(gradle_content)
           "
 
       - name: Build APK
