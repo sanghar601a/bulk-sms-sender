@@ -56,11 +56,12 @@ jobs:
           # 1. Replace jcenter() with mavenCentral() globally in all pub cache build.gradle scripts
           find ~/.pub-cache/ -name "build.gradle" -exec sed -i 's/jcenter()/mavenCentral()/g' {} +
 
-          # 2. Inject missing namespace declarations and force compileSdkVersion/targetSdkVersion to 33
+          # 2. Inject missing namespace declarations, force compileSdkVersion/targetSdkVersion to 33, and patch java Registrar files
           python3 -c "
           import os, re
           pub_cache = os.path.expanduser('~/.pub-cache/hosted/pub.dev/')
           for root, dirs, files in os.walk(pub_cache):
+              # Patch Gradle files
               if 'build.gradle' in files:
                   gradle_path = os.path.join(root, 'build.gradle')
                   manifest_path = os.path.join(root, 'src/main/AndroidManifest.xml')
@@ -96,6 +97,50 @@ jobs:
                       if modified:
                           with open(gradle_path, 'w', encoding='utf-8') as f:
                               f.write(gradle_content)
+              
+              # Patch Java files to fix Registrar compilation issues
+              for file in files:
+                  if file.endswith('.java'):
+                      java_path = os.path.join(root, file)
+                      with open(java_path, 'r', encoding='utf-8', errors='ignore') as f:
+                          content = f.read()
+                      
+                      java_modified = False
+                      if 'Registrar' in content:
+                          # Comment out import
+                          new_content = re.sub(
+                              r'import\s+io\.flutter\.plugin\.common\.PluginRegistry\.Registrar\s*;',
+                              '// import io.flutter.plugin.common.PluginRegistry.Registrar;',
+                              content
+                          )
+                          if new_content != content:
+                              content = new_content
+                              java_modified = True
+                          
+                          # Comment out registerWith method
+                          match = re.search(r'public\s+static\s+void\s+registerWith\s*\(\s*(?:[a-zA-Z0-9._]+)?Registrar\s+\w+\s*\)\s*\{', content)
+                          if match:
+                              start_idx = match.start()
+                              brace_count = 0
+                              end_idx = -1
+                              for i in range(start_idx, len(content)):
+                                  if content[i] == '{':
+                                      brace_count += 1
+                                  elif content[i] == '}':
+                                      brace_count -= 1
+                                      if brace_count == 0:
+                                          end_idx = i + 1
+                                          break
+                              if end_idx != -1:
+                                  method_code = content[start_idx:end_idx]
+                                  commented_method = '/*' + method_code + '*/'
+                                  content = content[:start_idx] + commented_method + content[end_idx:]
+                                  java_modified = True
+                                  print(f'Successfully commented out registerWith in {java_path}')
+                      
+                      if java_modified:
+                          with open(java_path, 'w', encoding='utf-8') as f:
+                              f.write(content)
           "
 
       - name: Build APK
